@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors';
 import { router } from '../routes/users.js';
+import { dbConnection } from '../database/config.js';
 
 
 class Server{
@@ -13,6 +14,8 @@ class Server{
 
         // Constructores //
 
+        //conectar a la base de datos
+        this.conectarDB();
         //middlewares
         this. middlewares();
         //rutas de la aplicacion
@@ -20,6 +23,10 @@ class Server{
     };
     
     // METODOS //
+
+    async conectarDB(){
+        await dbConnection()
+    };
     
     middlewares(){
         this.app.use(cors());       // <--- ayuda a controlar el intercambio de recursos HTTP (evita errores cross domain acces)
